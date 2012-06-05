@@ -1,10 +1,11 @@
 require 'test_helper'
 
 class NavigationTest < ActionDispatch::IntegrationTest
-  fixtures :all
 
-  # test "the truth" do
-  #   assert true
-  # end
+  test "menue" do
+    visit('/mm_gallery/image_artifacts')
+    visit('/mm_gallery/galleries')
+  end
+
 end
 
