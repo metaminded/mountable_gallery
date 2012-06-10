@@ -1,4 +1,4 @@
 module MmGallery
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
   end
 end
