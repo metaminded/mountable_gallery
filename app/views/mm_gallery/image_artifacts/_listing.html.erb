@@ -1,4 +1,11 @@
 <%= table_for @image_artifacts do |t|
   t.column :id
-  t.column :caption
+  t.column :title
+  t.action do |r|
+    [
+      link_to("Show", image_artifact_path(r)),
+      link_to("Edit", edit_image_artifact_path(r), id: "edit_image_artifact_#{r.id}"),
+      link_to("Destroy", image_artifact_path(r), method: 'destroy')
+    ]
+  end
 end %>

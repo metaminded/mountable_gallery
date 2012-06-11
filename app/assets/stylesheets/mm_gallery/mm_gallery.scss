@@ -1,0 +1,19 @@
+div.artifact {
+  width: 60px;
+  height: 70px;
+  padding: 2px;
+  border: 1px solid #ccc;
+  margin: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: top;
+
+  &.selected {
+    border: 2px solid green;
+    margin: 2px;
+  }
+
+  img, span { display: block; }
+
+}

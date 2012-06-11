@@ -25,5 +25,6 @@ class ActionDispatch::IntegrationTest
     DatabaseCleaner.clean       # Truncate the database
     Capybara.reset_sessions!    # Forget the (simulated) browser state
     Capybara.use_default_driver # Revert Capybara.current_driver to Capybara.default_driver
+    FileUtils.rm_rf File.join(Rails.root, 'public', 'uploads')
   end
 end

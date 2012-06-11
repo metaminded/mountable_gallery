@@ -13,6 +13,7 @@ gem 'bootstrap-sass-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'tabulatr', git: 'https://github.com/provideal/tabulatr'
+gem "rails_misc", git: "http://github.com/metaminded/rails-misc"
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

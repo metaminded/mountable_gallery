@@ -11,12 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120610204146) do
+ActiveRecord::Schema.define(:version => 20120611090718) do
 
   create_table "mm_gallery_artifacts", :force => true do |t|
-    t.string   "file"
-    t.string   "type"
     t.string   "title"
+    t.string   "sid"
+    t.string   "file"
+    t.string   "icon"
+    t.string   "type"
     t.text     "caption"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
