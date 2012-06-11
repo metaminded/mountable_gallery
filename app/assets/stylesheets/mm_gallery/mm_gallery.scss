@@ -1,6 +1,6 @@
 div.artifact {
   width: 60px;
-  height: 70px;
+  height: 72px;
   padding: 2px;
   border: 1px solid #ccc;
   margin: 3px;
@@ -8,6 +8,7 @@ div.artifact {
   white-space: nowrap;
   display: inline-block;
   vertical-align: top;
+  position: relative;
 
   &.selected {
     border: 2px solid green;
@@ -15,5 +16,9 @@ div.artifact {
   }
 
   img, span { display: block; }
-
+  span {
+    position: absolute;
+    bottom: 0px;
+    left: 2px;
+  }
 }
