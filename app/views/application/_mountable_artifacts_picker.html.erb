@@ -1,5 +1,3 @@
-<% logger.info artifacts.class %>
-<% logger.info %{`#{artifacts.map(&:id).join(",")}`} %>
 <div class="gallery-icons" data-mm-gallery-association="true">
   <%= form.input "#{attribute_name}_tokens", value: artifacts.map(&:id).join(","), as: :hidden %>
   <ul class="active-artifacts" style="outline: 1px solid red">
@@ -17,6 +15,6 @@
       <a href="#" class="btn btn-primary save-button">Save changes</a>
     </div>
   </div>
-  <%= link_to "+", '#', class: 'btn mini', 'data-mm-gallery-association' => "#{object.class.to_s};#{object.id}" %>
+  <%= link_to "Manage", '#', class: 'btn mini', 'data-mm-gallery-association' => "#{object.class.to_s};#{object.id}" %>
 </div>
 

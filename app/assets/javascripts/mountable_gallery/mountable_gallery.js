@@ -1,68 +1,127 @@
-MountableGallery = {
-  artifacts: undefined,
-  url: '/mountable_gallery/artifacts.json',
-  blueprint: '<div class="artifact" data-artifact-id="ID"><img src="SRC" /><span>LABEL</span></div>',
-  showPicker: function(a) {
-      return function(data) {
-        if (data) {
-          MountableGallery.artifacts = data;
-        } else {
-          console.log("cache hit");
-          data = MountableGallery.artifacts;
-        }
-        var modal = a.siblings("div.modal.artifact-picker");
-        var body = modal.find(".modal-body");
-        var active_ids = a.parents(".gallery-icons").find('input').val().split(",");
-        console.log(active_ids);
-        body.html("");
-        $.each(data, function(){
-          var d = this;
-          var s = MountableGallery.blueprint;
-          s = $(s.replace('ID', d.id).replace('SRC', d.image).replace("LABEL", d.title));
-          if (active_ids.indexOf(""+d.id) >= 0) {
-            console.log("active: " + d.id);
-            s.addClass('selected');
-          }
-          body.append(s);
-        })
-        body.find('div.artifact[data-artifact-id]').click(function() {
-          var div = $(this);
-          if (div.hasClass('selected')) {
-            div.removeClass('selected');
-          } else {
-            div.addClass('selected');
-          }
-        })
-        modal.find('.save-button').click(function(){
-          var input = a.parents('.gallery-icons').find('input');
-          console.log(input.val());
-          var val = body.find('div.artifact.selected[data-artifact-id]').map(function(){
-            return $(this).data('artifact-id');
-          }).toArray().join(",");
-          input.val(val);
-          modal.find('.close-button').click();
-        });
-        modal.modal();
-      }
-    },
-  init: function(sel) {
-      jQuery(function($){
-        // Attach 'Add' Button
-        $(sel).click(function(){
-          var a = $(this);
-          if (MountableGallery.artifacts) {
-            MountableGallery.showPicker(a)();
-          } else {
-            $.ajax(MountableGallery.url, {
-              success: MountableGallery.showPicker(a)
-            })
-          }
-          return false;
-        });
-      }
-      // initially create 'visibles'
-    )
+function MountableGallery(selector) {
+  this.selector        = selector;
+  this.artifacts       = undefined;
+  this.artifacts_by_id = {};
+  this.url             = '/mountable_gallery/artifacts.json';
+  this.blueprint       = '<div class="artifact" data-artifact-id="ID"><img src="SRC" /><span>LABEL</span></div>';
+  this.activation_link = $(selector);
+
+  if (this.activation_link.length == 0) {
+    return false;
   }
+
+  this.modal = function() {
+    return this.activation_link.siblings("div.modal.artifact-picker");
+  }
+
+  this.input = function() {
+    return this.activation_link.parents('.gallery-icons').find('input');
+  }
+
+  this.active_ids = function() {
+    var selected = this.input().val();
+    return selected.length > 0 ? selected.split(",") : [];
+  }
+
+  this.artifactView = function(data) {
+    //console.log(data);
+    var s = this.blueprint;
+    s = $(s.replace('ID', data.id).replace('SRC', data.image).replace("LABEL", data.title));
+    return s;
+  };
+
+  this.artifactViewForId = function(id) {
+    console.log(id);
+    return this.artifactView(this.artifacts_by_id[id])
+  };
+
+  this.showPicker = function() {
+    var self = this
+    return function() {
+      data = self.artifacts;
+      var modal = self.modal();
+      var body = modal.find(".modal-body");
+      var active_ids = self.active_ids();
+      console.log(active_ids);
+      body.html("");
+      $.each(data, function(){
+        var d = this;
+        var s = self.artifactView(d);
+        if (active_ids.indexOf(""+d.id) >= 0) {
+          console.log("active: " + d.id);
+          s.addClass('selected');
+        }
+        body.append(s);
+      })
+      body.find('div.artifact[data-artifact-id]').click(function() {
+        var div = $(this);
+        if (div.hasClass('selected')) {
+          div.removeClass('selected');
+        } else {
+          div.addClass('selected');
+        }
+      })
+      sb = modal.find('.save-button')
+      sb.unbind("click");
+      sb.click(self.save());
+      modal.modal();
+    }
+  };
+
+  this.save = function() {
+    var self = this;
+    return function() {
+      var input = self.input();
+      var modal = self.modal();
+      var selected = modal.find('div.artifact.selected[data-artifact-id]');
+      console.log("old input: "+input.val());
+      ids = selected.map(function() {
+        var icon = $(this);
+        console.log("active: "+icon.data('artifact-id'));
+        return icon.data('artifact-id');
+      }).toArray();
+      input.val(ids.join(","));
+      console.log("new input: "+input.val());
+      modal.find('.close-button').click();
+      self.updateIconList();
+      return false;
+    }
+  }
+
+  this.updateIconList = function() {
+    var input = this.input();
+    var modal = this.modal();
+    var list = modal.siblings(".active-artifacts");
+    list.html("");
+    var selected = this.active_ids();
+    var self = this;
+    console.log( selected);
+    $.each(selected, function(i, id) {
+      var icon = self.artifactViewForId(id);
+      list.append(icon);
+      console.log("active: "+id);
+    });
+    return false;
+  }
+
+  this.acceptArtifactList = function() {
+    var self = this;
+    return function(data) {
+      $.each(data, function(i,v) {
+        console.log("" + i + ": " + v)
+        self.artifacts_by_id[v.id] = v;
+      })
+      self.artifacts = data;
+      self.updateIconList();
+      self.activation_link.click(self.showPicker());
+    }
+  };
+
+  $.ajax(this.url, {
+    success: this.acceptArtifactList()
+  });
 }
 
-MountableGallery.init('div[data-mm-gallery-association] a[data-mm-gallery-association]');
+$(function($) {
+  new MountableGallery('div[data-mm-gallery-association] a[data-mm-gallery-association]');
+});

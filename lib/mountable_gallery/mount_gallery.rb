@@ -13,13 +13,13 @@ class ActiveRecord::Base
       toks = s.split(",")
       mnn = membership_model.to_s.classify
       mm = self.class.const_defined?(mnn) ? mnn.constantize : "MountableGallery::#{mnn}".constantize
-      s = self.class.to_s.underscore
+      s = self.class.name.split("::").last.underscore
       self.send(membership_models).each(&:destroy)
       self.send "#{membership_models}=", toks.map.with_index { |id, i|
         mm.create!(
           position: i+1,
           s => self,
-          artifact: Artifact.find(id)
+          artifact: MountableGallery::Artifact.find(id)
         )
       }
     end
