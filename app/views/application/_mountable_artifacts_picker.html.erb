@@ -1,6 +1,6 @@
 <div class="gallery-icons" data-mm-gallery-association="true">
   <%= form.input "#{attribute_name}_tokens", value: artifacts.map(&:id).join(","), as: :hidden %>
-  <ul class="active-artifacts" style="outline: 1px solid red">
+  <ul class="active-artifacts">
   </ul>
   <div class="modal fade artifact-picker">
     <div class="modal-header">
