@@ -8,11 +8,11 @@ class GalleriesTest < ActionDispatch::IntegrationTest
 
   test "Basic CRUD" do
     # INDEX
-    visit '/mountable_gallery/galleries'
+    visit '/galleries'
 
     # CREATE
     click_link 'Create'
-    assert_path_is '/mountable_gallery/galleries/new'
+    assert_path_is '/galleries/new'
     fill_form :gallery, {
       title:        'FancyGallery',
       sid:          'fancy_gallery',
@@ -20,7 +20,7 @@ class GalleriesTest < ActionDispatch::IntegrationTest
     }, 'Create Gallery'
 
     # INDEX, again
-    assert_path_is '/mountable_gallery/galleries'
+    assert_path_is '/galleries'
     assert page.has_content?('FancyGallery')
 
     # SHOW
@@ -28,18 +28,18 @@ class GalleriesTest < ActionDispatch::IntegrationTest
     assert page.has_content?('FancyGallery')
 
     # EDIT
-    visit '/mountable_gallery/galleries'
+    visit '/galleries'
     click_link 'Edit'
     #assert page.has_content?('FancyGallery')
     fill_form :gallery, { title: 'MyGallery' }, 'Update Gallery'
 
     # INDEX, again
-    assert_path_is '/mountable_gallery/galleries'
+    assert_path_is '/galleries'
     assert !page.has_content?('FancyGallery')
     assert page.has_content?('MyGallery')
 
     # INDEX artifacts
-    visit '/mountable_gallery/image_artifacts'
+    visit '/image_artifacts'
     {
       "Apple" =>     "apple.jpeg",
       "Windows 8" => "windows8.jpeg",
@@ -47,14 +47,14 @@ class GalleriesTest < ActionDispatch::IntegrationTest
       "Gimp" =>      "gimp.png"
     }.each do |title, image|
       click_link 'Create'
-      assert_path_is '/mountable_gallery/image_artifacts/new'
+      assert_path_is '/image_artifacts/new'
       fill_form :image_artifact, {
         title:   title,
         sid:     title.parameterize,
         caption: title,
         file:    file(image)
       }, 'Create Image artifact'
-      assert_path_is '/mountable_gallery/image_artifacts'
+      assert_path_is '/image_artifacts'
       assert_content title
     end
     ap = MountableGallery::ImageArtifact['apple']

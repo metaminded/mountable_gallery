@@ -13,6 +13,25 @@
 
 ActiveRecord::Schema.define(:version => 20120612082724) do
 
+  create_table "galleries", :force => true do |t|
+    t.string   "title"
+    t.string   "sid"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "gallery_memberships", :force => true do |t|
+    t.integer  "gallery_id"
+    t.integer  "artifact_id"
+    t.integer  "position"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "gallery_memberships", ["artifact_id"], :name => "index_gallery_memberships_on_artifact_id"
+  add_index "gallery_memberships", ["gallery_id"], :name => "index_gallery_memberships_on_gallery_id"
+
   create_table "mountable_gallery_artifacts", :force => true do |t|
     t.string   "title"
     t.string   "sid"
@@ -23,24 +42,5 @@ ActiveRecord::Schema.define(:version => 20120612082724) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "mountable_gallery_galleries", :force => true do |t|
-    t.string   "title"
-    t.string   "sid"
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "mountable_gallery_gallery_memberships", :force => true do |t|
-    t.integer  "gallery_id"
-    t.integer  "artifact_id"
-    t.integer  "position"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "mountable_gallery_gallery_memberships", ["artifact_id"], :name => "index_mountable_gallery_gallery_memberships_on_artifact_id"
-  add_index "mountable_gallery_gallery_memberships", ["gallery_id"], :name => "index_mountable_gallery_gallery_memberships_on_gallery_id"
 
 end

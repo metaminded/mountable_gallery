@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  mount MountableGallery::Engine => "/mountable_gallery"
-  root to: redirect('/mountable_gallery/galleries')
+  resources :galleries
+  resources :image_artifacts
+  root to: redirect('/galleries')
+
+  mount MountableGallery::Engine => "mountable_gallery"
 end

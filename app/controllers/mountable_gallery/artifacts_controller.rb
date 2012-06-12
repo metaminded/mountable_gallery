@@ -1,4 +1,4 @@
-class MountableGallery::ArtifactsController < MountableGallery::ApplicationController
+class MountableGallery::ArtifactsController < ApplicationController
 
   def index()
     artifacts = MountableGallery::Artifact.all

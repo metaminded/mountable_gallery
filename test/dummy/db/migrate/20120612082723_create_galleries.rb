@@ -1,7 +1,7 @@
 # This migration comes from mountable_gallery (originally 20120605112411)
-class CreateMountableGalleryGalleries < ActiveRecord::Migration
+class CreateGalleries < ActiveRecord::Migration
   def change
-    create_table :mountable_gallery_galleries do |t|
+    create_table :galleries do |t|
       t.string :title
       t.string :sid
       t.string :description

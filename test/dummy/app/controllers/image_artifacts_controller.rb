@@ -1,4 +1,4 @@
-class MountableGallery::ImageArtifactsController < MountableGallery::ApplicationController
+class ImageArtifactsController < ApplicationController
   cruddler :all,
     :class => MountableGallery::ImageArtifact,
     path_components: [],
