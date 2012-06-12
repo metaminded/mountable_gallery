@@ -7,13 +7,13 @@ require "mountable_gallery/version"
 Gem::Specification.new do |s|
   s.name        = "mountable_gallery"
   s.version     = MountableGallery::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of MountableGallery."
-  s.description = "TODO: Description of MountableGallery."
+  s.authors     = ["Peter Horn, metaminded UG"]
+  s.email       = ["ph@metaminded.com"]
+  s.homepage    = "https://github.com/metaminded/mountable_gallery"
+  s.summary     = "A MountableGallery."
+  s.description = "A Gallery that can be mounted on ActiveRecord models."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.textile"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.3"
