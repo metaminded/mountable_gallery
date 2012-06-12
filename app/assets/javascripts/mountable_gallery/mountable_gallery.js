@@ -24,14 +24,12 @@ function MountableGallery(selector) {
   }
 
   this.artifactView = function(data) {
-    //console.log(data);
     var s = this.blueprint;
     s = $(s.replace('ID', data.id).replace('SRC', data.image).replace("LABEL", data.title));
     return s;
   };
 
   this.artifactViewForId = function(id) {
-    console.log(id);
     return this.artifactView(this.artifacts_by_id[id])
   };
 
@@ -42,13 +40,11 @@ function MountableGallery(selector) {
       var modal = self.modal();
       var body = modal.find(".modal-body");
       var active_ids = self.active_ids();
-      console.log(active_ids);
       body.html("");
       $.each(data, function(){
         var d = this;
         var s = self.artifactView(d);
         if (active_ids.indexOf(""+d.id) >= 0) {
-          console.log("active: " + d.id);
           s.addClass('selected');
         }
         body.append(s);
@@ -74,14 +70,11 @@ function MountableGallery(selector) {
       var input = self.input();
       var modal = self.modal();
       var selected = modal.find('div.artifact.selected[data-artifact-id]');
-      console.log("old input: "+input.val());
       ids = selected.map(function() {
         var icon = $(this);
-        console.log("active: "+icon.data('artifact-id'));
         return icon.data('artifact-id');
       }).toArray();
       input.val(ids.join(","));
-      console.log("new input: "+input.val());
       modal.find('.close-button').click();
       self.updateIconList();
       return false;
@@ -95,11 +88,9 @@ function MountableGallery(selector) {
     list.html("");
     var selected = this.active_ids();
     var self = this;
-    console.log( selected);
     $.each(selected, function(i, id) {
       var icon = self.artifactViewForId(id);
       list.append(icon);
-      console.log("active: "+id);
     });
     return false;
   }
@@ -108,7 +99,6 @@ function MountableGallery(selector) {
     var self = this;
     return function(data) {
       $.each(data, function(i,v) {
-        console.log("" + i + ": " + v)
         self.artifacts_by_id[v.id] = v;
       })
       self.artifacts = data;
