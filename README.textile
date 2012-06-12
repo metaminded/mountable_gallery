@@ -32,13 +32,15 @@ and in Fubar, do
 
 h2. View
 
-<%= simple_form_for [@fubar] do |f| %>
-  <%= f.input :title %>
-  ...whatever...
-  <%= f.input :artifacts, as: :mountable_artifact_picker %>
-  ...whatever...
-  <%= f.submit %>
-<% end %>
+<pre>
+  <%= simple_form_for [@fubar] do |f| %>
+    <%= f.input :title %>
+    ...whatever...
+    <%= f.input :artifacts, as: :mountable_artifact_picker %>
+    ...whatever...
+    <%= f.submit %>
+  <% end %>
+</pre>
 
 and done we are.
 
