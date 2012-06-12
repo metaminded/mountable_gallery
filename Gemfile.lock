@@ -24,7 +24,7 @@ GIT
 PATH
   remote: .
   specs:
-    mm_gallery (0.0.1)
+    mountable_gallery (0.0.1)
       rails (~> 3.2.3)
       rails_misc
 
@@ -182,7 +182,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   mini_magick
-  mm_gallery!
+  mountable_gallery!
   rails_misc!
   simple_form
   sqlite3

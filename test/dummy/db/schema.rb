@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611090718) do
+ActiveRecord::Schema.define(:version => 20120612082724) do
 
-  create_table "mm_gallery_artifacts", :force => true do |t|
+  create_table "mountable_gallery_artifacts", :force => true do |t|
     t.string   "title"
     t.string   "sid"
     t.string   "file"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20120611090718) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "mm_gallery_galleries", :force => true do |t|
+  create_table "mountable_gallery_galleries", :force => true do |t|
     t.string   "title"
     t.string   "sid"
     t.string   "description"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20120611090718) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "mm_gallery_gallery_memberships", :force => true do |t|
+  create_table "mountable_gallery_gallery_memberships", :force => true do |t|
     t.integer  "gallery_id"
     t.integer  "artifact_id"
     t.integer  "position"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20120611090718) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "mm_gallery_gallery_memberships", ["artifact_id"], :name => "index_mm_gallery_gallery_memberships_on_artifact_id"
-  add_index "mm_gallery_gallery_memberships", ["gallery_id"], :name => "index_mm_gallery_gallery_memberships_on_gallery_id"
+  add_index "mountable_gallery_gallery_memberships", ["artifact_id"], :name => "index_mountable_gallery_gallery_memberships_on_artifact_id"
+  add_index "mountable_gallery_gallery_memberships", ["gallery_id"], :name => "index_mountable_gallery_gallery_memberships_on_gallery_id"
 
 end

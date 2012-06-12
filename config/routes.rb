@@ -1,4 +1,4 @@
-MmGallery::Engine.routes.draw do
+MountableGallery::Engine.routes.draw do
 
   resources :image_artifacts
   resources :galleries

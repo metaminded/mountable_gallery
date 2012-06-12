@@ -1,0 +1,7 @@
+<%= simple_form_for [@gallery] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :sid %>
+  <%= f.input :description %>
+  <%= f.input :artifacts, as: :mountable_artifact_picker %>
+  <%= f.submit %>
+<% end %>

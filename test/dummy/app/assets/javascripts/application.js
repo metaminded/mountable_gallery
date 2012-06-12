@@ -15,4 +15,4 @@
 //= require_tree .
 //= require twitter/bootstrap
 
-//= require mm_gallery/mm_gallery
+//= require mountable_gallery/mountable_gallery
