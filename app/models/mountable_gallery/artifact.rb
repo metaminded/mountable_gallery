@@ -6,6 +6,5 @@ module MountableGallery
 
     scope :images, where(:type => "MountableGallery::ImageArtifact")
     scope :documents, where(:type => "MountableGallery::DocumentArtifact")
-
   end
 end
