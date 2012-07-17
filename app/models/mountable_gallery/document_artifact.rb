@@ -6,7 +6,7 @@ module MountableGallery
     def icon_url(size)
       file_string = self.file.to_s
       type_string = file_string.split('.')[1]
-      File.join('/icons', type_string , "#{size}.png")
+      File.join('app/assets/images/icons', type_string , "#{size}.png")
     end
 
   end
