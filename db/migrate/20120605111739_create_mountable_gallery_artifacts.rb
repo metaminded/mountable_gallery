@@ -6,6 +6,7 @@ class CreateMountableGalleryArtifacts < ActiveRecord::Migration
       t.string :file
       t.string :icon
       t.string :type
+      t.string :tag
       t.text :caption
       t.timestamps
     end

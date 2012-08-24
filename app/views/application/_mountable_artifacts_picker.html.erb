@@ -11,6 +11,7 @@
       <p>One fine body…</p>
     </div>
     <div class="modal-footer">
+      <%= text_field_tag("artifact_search_field", '', id: 'artifact_search_field', class: 'search-query') %>
       <a href="#" class="btn close-button" data-dismiss="modal"><%= t('mg.close') %></a>
       <a href="#" class="btn btn-primary save-button"><%= t('mg.save_changes') %></a>
     </div>

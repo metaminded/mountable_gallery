@@ -4,7 +4,7 @@ class MountableGallery::ArtifactsController < ApplicationController
     artifacts = MountableGallery::Artifact.all
     respond_to  do |format|
       format.json do
-        j = artifacts.map{|a| {id: a.id, title: a.title.presence || a.caption, image: a.icon_url(:icon56)} }.to_json
+        j = artifacts.map{|a| {id: a.id, title: a.title.presence || a.caption, image: a.icon_url(:icon56), tag: a.tag} }.to_json
         #logger.info j
         render json: j
       end

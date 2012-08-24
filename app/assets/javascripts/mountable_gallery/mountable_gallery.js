@@ -3,7 +3,7 @@ function MountableGallery(selector) {
   this.artifacts       = undefined;
   this.artifacts_by_id = {};
   this.url             = '/mountable_gallery/artifacts.json';
-  this.blueprint       = '<div class="artifact" data-artifact-id="ID"><img src="SRC" /><span>LABEL</span></div>';
+  this.blueprint       = '<div class="artifact" data-artifact-id="ID" data-tag="ATAG"><img src="SRC" /><span>LABEL</span></div>';
   this.activation_link = $(selector);
 
   if (this.activation_link.length == 0) {
@@ -25,7 +25,7 @@ function MountableGallery(selector) {
 
   this.artifactView = function(data) {
     var s = this.blueprint;
-    s = $(s.replace('ID', data.id).replace('SRC', data.image).replace("LABEL", data.title));
+    s = $(s.replace('ID', data.id).replace('SRC', data.image).replace("LABEL", data.title).replace("ATAG", data.tag));
     return s;
   };
 
@@ -114,4 +114,19 @@ function MountableGallery(selector) {
 
 $(function($) {
   new MountableGallery('div[data-mm-gallery-association] a[data-mm-gallery-association]');
+});
+
+jQuery(function($){
+  $('#artifact_search_field').keyup(function(){
+    var search = $('#artifact_search_field').val();
+    var regex_obj = new RegExp(search, 'g');
+    $('div.artifact-picker div.artifact').each(function(i, thing){
+      var div = $(thing);
+      var tag = div.data('tag');
+      if(!search || (tag && tag.match(regex_obj))) 
+        div.show();
+      else
+        div.hide();
+    });
+  });
 });
