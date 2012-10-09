@@ -1,3 +1,5 @@
+MountableGallery::ImageArtifactsUploader
+
 class MountableGallery::ImageArtifactsUploader
 
   version :size240 do
