@@ -3,7 +3,7 @@ function MountableGallery(selector) {
   this.artifacts       = undefined;
   this.artifacts_by_id = {};
   this.url             = '/mountable_gallery/artifacts.json';
-  this.blueprint       = '<div class="artifact" data-artifact-id="ID" data-tag="ATAG"><img src="SRC" /><span>LABEL</span></div>';
+  this.blueprint       = '<div class="artifact" data-artifact-id="ID" data-tag="ATAG" title="LABEL ATAG"><img src="SRC" /><span>LABEL</span></div>';
   this.activation_link = $(selector);
 
   if (this.activation_link.length == 0) {
@@ -15,7 +15,7 @@ function MountableGallery(selector) {
   }
 
   this.input = function() {
-    return this.activation_link.parents('.gallery-icons').find('input');
+    return this.activation_link.parents('.gallery-icons').find('input[type=hidden]');
   }
 
   this.active_ids = function() {
@@ -25,7 +25,7 @@ function MountableGallery(selector) {
 
   this.artifactView = function(data) {
     var s = this.blueprint;
-    s = $(s.replace('ID', data.id).replace('SRC', data.image).replace("LABEL", data.title).replace("ATAG", data.tag));
+    s = $(s.replace(/ID/g, data.id).replace(/SRC/g, data.image).replace(/LABEL/g, data.title).replace(/ATAG/g, (data.tag || '')));
     return s;
   };
 
@@ -119,11 +119,12 @@ $(function($) {
 jQuery(function($){
   $('#artifact_search_field').keyup(function(){
     var search = $('#artifact_search_field').val();
-    var regex_obj = new RegExp(search, 'g');
+    var regex_obj = new RegExp(search, 'gi');
     $('div.artifact-picker div.artifact').each(function(i, thing){
       var div = $(thing);
       var tag = div.data('tag');
-      if(!search || (tag && tag.match(regex_obj))) 
+      var label = div.find('span').html();
+      if(!search || (tag && tag.match(regex_obj)) || (label && label.match(regex_obj))) 
         div.show();
       else
         div.hide();
