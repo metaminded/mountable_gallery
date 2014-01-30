@@ -1,6 +1,6 @@
 class ActiveRecord::Base
   def self.mount_gallery(membership_model)
-    membership_models = membership_model.to_s.pluralize
+    membership_models = membership_model.to_s.pluralize.to_sym
     has_many membership_models, order: 'position asc', :dependent => :destroy
     has_many :artifacts, through: membership_models, class_name: 'MountableGallery::Artifact'
 
@@ -8,7 +8,7 @@ class ActiveRecord::Base
       artifact_ids.join(",")
     end
 
-    attr_accessible :artifacts_tokens
+    permitted_attributes :artifacts_tokens
     self.send :define_method, "artifacts_tokens=" do |s|
       toks = s.split(",")
       mnn = membership_model.to_s.classify

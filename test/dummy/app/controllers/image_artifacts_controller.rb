@@ -1,7 +1,11 @@
 class ImageArtifactsController < ApplicationController
   cruddler :all,
-    :class => MountableGallery::ImageArtifact,
+    :klass => MountableGallery::ImageArtifact,
     path_components: [],
-    parameter_name: 'image_artifact'
-
+    parameter_name: 'image_artifact' do
+    params.require(:image_artifact).permit(*MountableGallery::ImageArtifact.permitted_attributes)
+  end
+  def index
+    tabulatr_for MountableGallery::ImageArtifact.all
+  end
 end

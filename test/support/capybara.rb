@@ -1,5 +1,6 @@
 require 'capybara/rails'
-require "selenium/webdriver"
+require 'capybara/poltergeist'
+# require 'selenium/webkit'
 require 'database_cleaner'
 
 DatabaseCleaner.strategy = :truncation
@@ -10,7 +11,7 @@ class ActionDispatch::IntegrationTest
 
   # Stop ActiveRecord from wrapping tests in transactions
   self.use_transactional_fixtures = false
-
+  Capybara.javascript_driver = :selenium
  # Capybara.register_driver :chrome do |app|
  #   profile = Selenium::WebDriver::Chrome::Profile.new
  #   profile["download.default_directory"] = Rails.root.join("tmp/downloads")
@@ -20,6 +21,9 @@ class ActionDispatch::IntegrationTest
  # Capybara.default_driver = Capybara.javascript_driver = :chrome
  # Capybara.default_driver = :webkit
 
+  # before(:all) do
+
+  # end
 
   teardown do
     DatabaseCleaner.clean       # Truncate the database

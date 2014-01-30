@@ -1,11 +1,1 @@
-<%= table_for @galleries do |t|
-  t.column :id
-  t.column :title
-  t.action do |r|
-    [
-      link_to("Show", gallery_path(r)),
-      link_to("Edit", edit_gallery_path(r)),
-      link_to("Destroy", gallery_path(r), method: 'destroy')
-    ]
-  end
-end %>
+<%= table_for Gallery %>

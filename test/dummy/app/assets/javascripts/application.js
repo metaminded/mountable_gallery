@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require_tree .
 //= require twitter/bootstrap
+//= require tabulatr
 
 //= require mountable_gallery/mountable_gallery

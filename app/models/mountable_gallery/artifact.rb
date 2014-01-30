@@ -1,6 +1,6 @@
 module MountableGallery
   class Artifact < ActiveRecord::Base
-    attr_accessible :file, :title, :caption, :sid, :icon, :tag
+    permitted_attributes :file, :title, :caption, :sid, :icon, :tag
 
     act_as_matchcoded :sid
 

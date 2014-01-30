@@ -8,11 +8,12 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 gem 'simple_form'
-gem 'cruddler', git: 'https://github.com/provideal/cruddler'
+gem 'cruddler', git: 'https://github.com/provideal/cruddler', branch: 'rails4'
 gem 'bootstrap-sass-rails'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'tabulatr', git: 'https://github.com/provideal/tabulatr'
+gem 'slim'
+gem 'tabulatr2'
 gem "rails_misc", git: "http://github.com/metaminded/rails-misc"
 
 # Declare any dependencies that are still in development here instead of in
@@ -24,6 +25,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'capybara-webkit'
   gem 'chromedriver-helper'
   gem 'launchy'

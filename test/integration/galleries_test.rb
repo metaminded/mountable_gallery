@@ -7,6 +7,7 @@ class GalleriesTest < ActionDispatch::IntegrationTest
   end
 
   test "Basic CRUD" do
+    Capybara.current_driver = :selenium
     # INDEX
     visit '/galleries'
 
@@ -21,18 +22,16 @@ class GalleriesTest < ActionDispatch::IntegrationTest
 
     # INDEX, again
     assert_path_is '/galleries'
-    assert page.has_content?('FancyGallery')
-
+    puts 'im on gallery index'
     # SHOW
-    click_link 'Show'
+    click_link('show')
     assert page.has_content?('FancyGallery')
 
     # EDIT
     visit '/galleries'
-    click_link 'Edit'
+    click_link('edit')
     #assert page.has_content?('FancyGallery')
     fill_form :gallery, { title: 'MyGallery' }, 'Update Gallery'
-
     # INDEX, again
     assert_path_is '/galleries'
     assert !page.has_content?('FancyGallery')
@@ -46,7 +45,7 @@ class GalleriesTest < ActionDispatch::IntegrationTest
       "Fedora" =>    "fedora.png",
       "Gimp" =>      "gimp.png"
     }.each do |title, image|
-      click_link 'Create'
+      click_link('xt')
       assert_path_is '/image_artifacts/new'
       fill_form :image_artifact, {
         title:   title,
@@ -63,12 +62,7 @@ class GalleriesTest < ActionDispatch::IntegrationTest
       title:   'Newton Picture'
     }, 'Update Image artifact'
     assert_content 'Newton Picture'
-
-
     save_and_open_page
-
-
-
   end
 
 end
